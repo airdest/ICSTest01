@@ -97,6 +97,13 @@ public class InfoChainMaker {
         //设置信息链内容
         infoChain.setInfoUnitList(infoUnitList);
 
+        //设置信息链持续时间
+        infoChain.setSurvivalTime(MagicValue.DEFAULT_SURVIVAL_TIME);
+
+        //信息链作为信息元，加入队列
+        idNumber = idNumber + 1;
+        infoUnitMap.put(idNumber,infoChain);
+
         //信息链组合次数+1
         infoChainCreateTime = infoChainCreateTime + 1;
 
@@ -170,8 +177,21 @@ public class InfoChainMaker {
      * 1.每次运行killLifeTime,都将所有的InfoUnit的生存时间减去指定额度
      * 2.把所有生存时间小于0的InfoUnit从infoUnitMap中移除
      */
-    public void killLifeTime(long timeToSub){
+    public void killLifeTime(Integer timeToSub){
+        Set<Integer> integers = infoUnitMap.keySet();
+        ArrayList<Integer> removeList = new ArrayList<>();
+        for (Integer integer : integers) {
+            InfoUnit infoUnit = infoUnitMap.get(integer);
+            infoUnit.setSurvivalTime(infoUnit.getSurvivalTime() - timeToSub);
+            if (infoUnit.getSurvivalTime() <= 0){
+                removeList.add(integer);
+            }
+            infoUnitMap.put(integer,infoUnit);
+        }
 
+        for (Integer integer : removeList) {
+            infoUnitMap.remove(integer);
+        }
 
     }
 
