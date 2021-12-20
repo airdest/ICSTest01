@@ -25,4 +25,17 @@ public class InfoChain extends InfoUnit {
     public void setInfoUnitList(ArrayList<InfoUnit> infoUnitList) {
         this.infoUnitList = infoUnitList;
     }
+
+
+    @Override
+    public String toString() {
+        return "InfoChain{" +
+                "infoUnitList=" + infoUnitList +
+                ", infoID=" + infoID +
+                ", layer=" + layer +
+                ", survivalTime=" + survivalTime +
+                ", basicInfo=" + basicInfo +
+                ", linkToList=" + linkToList +
+                '}';
+    }
 }

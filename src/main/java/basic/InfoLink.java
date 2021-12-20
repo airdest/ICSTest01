@@ -39,4 +39,18 @@ public class InfoLink extends InfoChain {
     public void setProbablity(Double probablity) {
         this.probablity = probablity;
     }
+
+    @Override
+    public String toString() {
+        return "InfoLink{" +
+                "infoUnitList=" + infoUnitList +
+                ", survivalTime=" + survivalTime +
+                ", probablity=" + probablity +
+                ", infoID=" + infoID +
+                ", layer=" + layer +
+                ", survivalTime=" + survivalTime +
+                ", basicInfo=" + basicInfo +
+                ", linkToList=" + linkToList +
+                '}';
+    }
 }

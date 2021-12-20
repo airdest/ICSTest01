@@ -24,13 +24,13 @@ import java.util.Set;
 public class InfoChainMaker {
 
     //接收器信息池
-    HashMap<Integer,InfoUnit> receptorInfoMap;
+    HashMap<Integer,InfoUnit> receptorInfoMap = new HashMap<>();
 
     //行动器信息池
-    HashMap<Integer,InfoUnit> effectorInfoMap;
+    HashMap<Integer,InfoUnit> effectorInfoMap = new HashMap<>();
 
     //信息池
-    HashMap<Integer,InfoUnit> infoUnitMap;
+    HashMap<Integer,InfoUnit> infoUnitMap = new HashMap<>();
 
     //信息元序列化编号，由外部demo控制，内部不做修改
     Integer idNumber = 1;
@@ -56,7 +56,11 @@ public class InfoChainMaker {
 
         //随机选取一个信息元进行链接
         i = i + 1;
+        System.out.println("i = " + i);
         InfoUnit infoUnit = infoUnitMap.get(i);
+
+        System.out.println("当前infoUnitMap = " + infoUnitMap+"size:"+infoUnitMap.size());
+        System.out.println("随机选取一个infoUnit = " + infoUnit+"ID"+infoUnit.getInfoID());
 
         //初始化信息链
         InfoChain infoChain = new InfoChain();
@@ -100,12 +104,17 @@ public class InfoChainMaker {
         //设置信息链持续时间
         infoChain.setSurvivalTime(MagicValue.DEFAULT_SURVIVAL_TIME);
 
+
         //信息链作为信息元，加入队列
-        idNumber = idNumber + 1;
+
+        System.out.println("要设置的infoChain ID"+idNumber);
+        infoChain.setInfoID(idNumber);
         infoUnitMap.put(idNumber,infoChain);
 
         //信息链组合次数+1
         infoChainCreateTime = infoChainCreateTime + 1;
+
+        idNumber = idNumber + 1;
 
         //返回信息链
         return infoChain;
@@ -195,7 +204,73 @@ public class InfoChainMaker {
 
     }
 
+    @Override
+    public String toString() {
+        return "InfoChainMaker{" +
+                "receptorInfoMap=" + receptorInfoMap +
+                ", effectorInfoMap=" + effectorInfoMap +
+                ", infoUnitMap=" + infoUnitMap +
+                ", idNumber=" + idNumber +
+                ", receptorUpdateTime=" + receptorUpdateTime +
+                ", effectorUpdateTime=" + effectorUpdateTime +
+                ", infoChainCreateTime=" + infoChainCreateTime +
+                '}';
+    }
 
 
+    public HashMap<Integer, InfoUnit> getReceptorInfoMap() {
+        return receptorInfoMap;
+    }
 
+    public void setReceptorInfoMap(HashMap<Integer, InfoUnit> receptorInfoMap) {
+        this.receptorInfoMap = receptorInfoMap;
+    }
+
+    public HashMap<Integer, InfoUnit> getEffectorInfoMap() {
+        return effectorInfoMap;
+    }
+
+    public void setEffectorInfoMap(HashMap<Integer, InfoUnit> effectorInfoMap) {
+        this.effectorInfoMap = effectorInfoMap;
+    }
+
+    public HashMap<Integer, InfoUnit> getInfoUnitMap() {
+        return infoUnitMap;
+    }
+
+    public void setInfoUnitMap(HashMap<Integer, InfoUnit> infoUnitMap) {
+        this.infoUnitMap = infoUnitMap;
+    }
+
+    public Integer getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(Integer idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    public Integer getReceptorUpdateTime() {
+        return receptorUpdateTime;
+    }
+
+    public void setReceptorUpdateTime(Integer receptorUpdateTime) {
+        this.receptorUpdateTime = receptorUpdateTime;
+    }
+
+    public Integer getEffectorUpdateTime() {
+        return effectorUpdateTime;
+    }
+
+    public void setEffectorUpdateTime(Integer effectorUpdateTime) {
+        this.effectorUpdateTime = effectorUpdateTime;
+    }
+
+    public Integer getInfoChainCreateTime() {
+        return infoChainCreateTime;
+    }
+
+    public void setInfoChainCreateTime(Integer infoChainCreateTime) {
+        this.infoChainCreateTime = infoChainCreateTime;
+    }
 }

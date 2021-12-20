@@ -28,4 +28,5 @@ public interface MagicValue {
     Integer DEFAULT_MAX_INFO_LAYER_NUMBER = 100;
 
 
+
 }

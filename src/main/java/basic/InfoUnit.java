@@ -85,4 +85,15 @@ public class InfoUnit  {
     public void setLinkToList(HashMap<InfoUnit, InfoLink> linkToList) {
         this.linkToList = linkToList;
     }
+
+    @Override
+    public String toString() {
+        return "InfoUnit{" +
+                "infoID=" + infoID +
+                ", layer=" + layer +
+                ", survivalTime=" + survivalTime +
+                ", basicInfo=" + basicInfo +
+                ", linkToList=" + linkToList +
+                '}';
+    }
 }
