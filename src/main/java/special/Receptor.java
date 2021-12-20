@@ -9,6 +9,21 @@ import java.util.ArrayList;
  */
 public class Receptor {
 
-    public ArrayList<InfoUnit> getInfoMapList;
+    /**
+     * 基础信息单元列表
+     * 接收器接收到的基础信息单元的列表
+     */
+    public ArrayList<InfoUnit> basicInfoUnitList;
 
+    public ArrayList<InfoUnit> getBasicInfoUnitList() {
+        return basicInfoUnitList;
+    }
+
+    public void setBasicInfoUnitList(ArrayList<InfoUnit> basicInfoUnitList) {
+        this.basicInfoUnitList = basicInfoUnitList;
+    }
+
+    public Receptor(ArrayList<InfoUnit> basicInfoUnitList) {
+        this.basicInfoUnitList = basicInfoUnitList;
+    }
 }
