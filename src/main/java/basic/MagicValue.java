@@ -1,4 +1,4 @@
-package constant;
+package basic;
 
 /**
  * 存放一些默认值，常量值
@@ -12,7 +12,7 @@ public interface MagicValue {
     Integer DEFAULT_INFO_UNIT_NUMBER = 10000;
 
     //信息链最大信息元数量，即信息链最大长度
-    Integer DEFAULT_INFO_UNIT_LENGTH = 10;
+    Integer DEFAULT_INFO_UNIT_LENGTH = 5;
 
     //一个信息元可以指向其它信息元的数量,模拟神经元细胞的突触数量限制
     Integer DEFAULT_MAX_POINT_TO_NUMBER = 100;

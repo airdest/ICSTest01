@@ -1,10 +1,6 @@
 package basic;
 
-import constant.MagicValue;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * 信息链
@@ -20,7 +16,7 @@ public class InfoChain extends InfoUnit {
     /**
      * 信息链存储的信息链接，是有序的从左到右，即第一个到最后一个。
      */
-    ArrayList<InfoUnit> infoUnitList = null;
+    ArrayList<InfoUnit> infoUnitList = new ArrayList<>(MagicValue.DEFAULT_INFO_UNIT_LENGTH);
 
 
 }

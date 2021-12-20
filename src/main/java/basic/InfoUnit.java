@@ -1,7 +1,5 @@
 package basic;
 
-import constant.MagicValue;
-
 import java.util.HashMap;
 
 /**
@@ -12,8 +10,9 @@ import java.util.HashMap;
  * 它可以是一个单独的信息元，也可以是一个信息链
  *
  *
+ *
  * 信息元包含的基础信息：
- * 1.可以是接收器创造的基础信息
+ * 1.可以是接收器创造的基础信息，如果是基础信息元，则存在时间相对设置更长。
  * 2.可以是行动器创造的行动指令
  *
  */
