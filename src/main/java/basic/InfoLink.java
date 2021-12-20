@@ -22,5 +22,21 @@ public class InfoLink extends InfoChain {
      */
     Double probablity = 0.0;
 
+    @Override
+    public Integer getSurvivalTime() {
+        return survivalTime;
+    }
 
+    @Override
+    public void setSurvivalTime(Integer survivalTime) {
+        this.survivalTime = survivalTime;
+    }
+
+    public Double getProbablity() {
+        return probablity;
+    }
+
+    public void setProbablity(Double probablity) {
+        this.probablity = probablity;
+    }
 }

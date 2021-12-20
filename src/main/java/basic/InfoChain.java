@@ -18,5 +18,11 @@ public class InfoChain extends InfoUnit {
      */
     ArrayList<InfoUnit> infoUnitList = new ArrayList<>(MagicValue.DEFAULT_INFO_UNIT_LENGTH);
 
+    public ArrayList<InfoUnit> getInfoUnitList() {
+        return infoUnitList;
+    }
 
+    public void setInfoUnitList(ArrayList<InfoUnit> infoUnitList) {
+        this.infoUnitList = infoUnitList;
+    }
 }

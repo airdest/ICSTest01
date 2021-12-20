@@ -1,5 +1,6 @@
 package special;
 
+import basic.InfoChain;
 import basic.InfoUnit;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ public class Effector {
 
     /**
      * 基础指令信息单元列表
+     *
+     * 在外部初始化时设置序列号，存活时间等等。
      */
     public ArrayList<InfoUnit> actionInfoUnitList;
 
@@ -26,4 +29,16 @@ public class Effector {
     public void setActionInfoUnitList(ArrayList<InfoUnit> actionInfoUnitList) {
         this.actionInfoUnitList = actionInfoUnitList;
     }
+
+    public Effector() {
+    }
+
+    public void executeInfoChain(InfoUnit infoUnit){
+
+    }
+
+
+
+
+
 }

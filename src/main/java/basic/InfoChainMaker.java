@@ -1,11 +1,11 @@
 package basic;
 
 import special.Effector;
-import demo.targets.TargetNum01;
 import special.Receptor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -32,17 +32,97 @@ public class InfoChainMaker {
     //信息池
     HashMap<Integer,InfoUnit> infoUnitMap;
 
-    //信息元序列化编号
-    Integer idNumber = 0;
+    //信息元序列化编号，由外部demo控制，内部不做修改
+    Integer idNumber = 1;
+
+    //接收器更新次数(用于记录次数)
+    Integer receptorUpdateTime = 0;
+
+    //行动器更新次数(用于记录次数)
+    Integer effectorUpdateTime = 0;
+
+    //信息链创建次数
+    Integer infoChainCreateTime = 0;
 
     /**
      * 根据当前已有信息元、以及存活时常、概率等，生成一个信息链，放入信息池并返回。
      * @return
      */
-    public InfoChain getInfoChain(){
+    public InfoChain getRandomInfoChain(){
 
 
-        return null;
+        Random random = new Random(666);
+        int i = random.nextInt(idNumber);
+
+        //随机选取一个信息元进行链接
+        i = i + 1;
+        InfoUnit infoUnit = infoUnitMap.get(i);
+
+        //初始化信息链
+        InfoChain infoChain = new InfoChain();
+
+        //初始化信息链里的信息元列表
+        ArrayList<InfoUnit> infoUnitList = new ArrayList<>();
+
+        //判断是否有链接
+        HashMap<InfoUnit, InfoLink> linkToList = infoUnit.getLinkToList();
+
+        //如果没有链接，就随机链接
+        if (linkToList.size() == 0){
+            InfoUnit linkUnit = infoUnitMap.get(random.nextInt(idNumber)+1);
+            InfoLink infoLink = new InfoLink();
+            infoLink.setSurvivalTime(MagicValue.DEFAULT_SURVIVAL_TIME);
+            infoLink.setProbablity(random.nextDouble());
+            //设置指向信息元及其概率
+            linkToList.put(linkUnit,infoLink);
+
+            //设置后更新到infoUnit
+            infoUnit.setLinkToList(linkToList);
+
+            //设置信息链内容,必须按顺序加入
+            infoUnitList.add(infoUnit);
+            infoUnitList.add(linkUnit);
+
+
+        }else{
+            //否则就寻找最大概率的InfoUnit
+            InfoUnit maxProbablityInfoUnit = getMaxProbablityInfoUnit(linkToList);
+
+            //设置信息链内容,必须按顺序加入
+            infoUnitList.add(infoUnit);
+            infoUnitList.add(maxProbablityInfoUnit);
+
+        }
+
+        //设置信息链内容
+        infoChain.setInfoUnitList(infoUnitList);
+
+        //信息链组合次数+1
+        infoChainCreateTime = infoChainCreateTime + 1;
+
+        //返回信息链
+        return infoChain;
+    }
+
+    /**
+     * 获取指向信息元列表中最大概率指向的信息元
+     * @param linkToMap
+     * @return
+     */
+    public InfoUnit getMaxProbablityInfoUnit(HashMap<InfoUnit, InfoLink> linkToMap){
+        Set<InfoUnit> infoUnitSet = linkToMap.keySet();
+        Double max = -1.0;
+        InfoUnit maxProbablityInfoUnit = null;
+        for (InfoUnit infoUnit : infoUnitSet) {
+            InfoLink infoLink = linkToMap.get(infoUnit);
+            if (infoLink.getProbablity() > max){
+                max = infoLink.getProbablity();
+                maxProbablityInfoUnit = infoLink;
+            }
+
+        }
+        return maxProbablityInfoUnit ;
+
     }
 
 
@@ -54,10 +134,16 @@ public class InfoChainMaker {
      * 接收函数会判断receptor的状态，如果状态变更则更新信息池中对应的信息。
      */
     public void getFromReceptor(Receptor receptor){
-
         //1.调用接收器方法，获取基础信息元
+        //2.基础信息元加入或更新到信息池,序列号由receptor创建时控制
+        ArrayList<InfoUnit> basicInfoUnitList = receptor.getBasicInfoUnitList();
+        for (InfoUnit infoUnit : basicInfoUnitList) {
+            receptorInfoMap.put(infoUnit.getInfoID(),infoUnit);
 
-        //2.基础信息元加入或更新到信息池
+            infoUnitMap.put(infoUnit.getInfoID(),infoUnit);
+        }
+
+        receptorUpdateTime = receptorUpdateTime + 1;
     }
 
     /**
@@ -66,10 +152,16 @@ public class InfoChainMaker {
      *
      */
     public void getFromEffector(Effector effector){
-
         //1.调用行动器方法，获取基础指令信息元
-
         //2.基础指令信息元加入或更新到信息池
+            ArrayList<InfoUnit> actionInfoUnitList = effector.getActionInfoUnitList();
+            for (InfoUnit infoUnit : actionInfoUnitList) {
+                //加入基础指令信息元到effector信息池
+                effectorInfoMap.put(infoUnit.getInfoID(),infoUnit);
+                //加入基础指令信息元到信息池
+                infoUnitMap.put(infoUnit.getInfoID(),infoUnit);
+            }
+        effectorUpdateTime = effectorUpdateTime + 1;
 
     }
 

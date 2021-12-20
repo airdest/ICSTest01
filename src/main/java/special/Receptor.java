@@ -26,4 +26,7 @@ public class Receptor {
     public Receptor(ArrayList<InfoUnit> basicInfoUnitList) {
         this.basicInfoUnitList = basicInfoUnitList;
     }
+
+    public Receptor() {
+    }
 }

@@ -44,7 +44,45 @@ public class InfoUnit  {
      * 信息元指向的其它信息元，及指向概率和时间(信息链接)
      * 简单地说就是：指向哪个信息元，指向的概率是多少，这个指向的存活时间是多少。
      */
-    HashMap<InfoChain,InfoLink> linkToList = new HashMap<>(MagicValue.DEFAULT_MAX_POINT_TO_NUMBER);
+    HashMap<InfoUnit,InfoLink> linkToList = new HashMap<>(MagicValue.DEFAULT_MAX_POINT_TO_NUMBER);
 
+    public Integer getInfoID() {
+        return infoID;
+    }
 
+    public void setInfoID(Integer infoID) {
+        this.infoID = infoID;
+    }
+
+    public Integer getLayer() {
+        return layer;
+    }
+
+    public void setLayer(Integer layer) {
+        this.layer = layer;
+    }
+
+    public Integer getSurvivalTime() {
+        return survivalTime;
+    }
+
+    public void setSurvivalTime(Integer survivalTime) {
+        this.survivalTime = survivalTime;
+    }
+
+    public Object getBasicInfo() {
+        return basicInfo;
+    }
+
+    public void setBasicInfo(Object basicInfo) {
+        this.basicInfo = basicInfo;
+    }
+
+    public HashMap<InfoUnit, InfoLink> getLinkToList() {
+        return linkToList;
+    }
+
+    public void setLinkToList(HashMap<InfoUnit, InfoLink> linkToList) {
+        this.linkToList = linkToList;
+    }
 }
