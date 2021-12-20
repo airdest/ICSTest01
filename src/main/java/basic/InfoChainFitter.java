@@ -1,31 +1,29 @@
-package func;
+package basic;
 
-import basic.Effector;
-import basic.InfoChain;
-import basic.InfoUnit;
-import basic.Receptor;
+import special.Effector;
 import demo.targets.TargetNum01;
-import constant.MagicValue;
+import special.Receptor;
 
 import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Core
+ *
  * 信息结构拟合器
- *
- *
  * 流程：
- * 1。信息结构拟合器创造一个信息链，根据当前信息链Map中权重最大的两个信息链组合出一个新的信息链，一个信息链中不能出现两次相同的信息单元。
+ * 1。信息结构拟合器创造一个信息链，根据当前信息链Map中权重最大的两个信息链组合出一个新的信息链
  * 2.Target读取这个信息链，进行check，check成功则增加当前信息链中元素的权重，并输出到结果展示map，check失败则降低所有元素的权值，更新信息链列表。
  * 3、并加入到信息链map中 ，信息链map存储其<编号,信息链>
  *
  *
  *
  */
-public class Core {
+public class InfoChainFitter {
 
-    HashMap<Integer,InfoUnit> infoUnitHashMap;
+    //信息池 <信息元编号，信息元>
+    HashMap<Integer, InfoChain> infoUnitHashMap;
+
+    //信息元序列化编号
     Integer idNumber = 0;
 
 
@@ -35,15 +33,9 @@ public class Core {
      * @param right
      * @return
      */
-    public InfoUnit combineInfoChain(InfoUnit left,InfoUnit right){
-        //前一个单元指向的后一个单元
-        left.setPointTo(right);
-        //前一个单元指向后一个单元的概率
-        left.setPointToProbablity(0.8);
-        //组合infoChain
-        InfoUnit infoChain = new InfoChain(left,right, System.currentTimeMillis(), MagicValue.defaultLifeTime);
-        //返回infoChain
-        return infoChain;
+    public InfoChain combineInfoChain(InfoChain left, InfoChain right){
+
+        return null;
     }
 
 
@@ -54,7 +46,7 @@ public class Core {
      *
      * @return
      */
-    public InfoUnit zeroLayerCombine(){
+    public InfoChain zeroLayerCombine(){
         //第一次，所有顺序组合俩直接返回，初始权值为前两个的权值最高的一个+1
         Set<Integer> integers = infoUnitHashMap.keySet();
         for (Integer integer : integers) {
@@ -68,7 +60,7 @@ public class Core {
     }
 
 
-    public InfoUnit multiLayerCombine(){
+    public InfoChain multiLayerCombine(){
 
         return null;
     }
@@ -76,9 +68,8 @@ public class Core {
 
     /**
      * 从Recipiter中获取InfoUnit加入到InfoUnitMap中
-     * 如果连续不断地获取新信息，则可以每隔一段时间调用一次获取
+     * 如果连续不断地获取新信息，则可以每隔一段时间调用一次
      *
-     * 我认为信息结构组合系统并不应该关心外部具体时间，而只关心内部存活时间就足够了。
      *
      *
      */
@@ -118,7 +109,7 @@ public class Core {
      * @param target
      * @return
      */
-    public boolean checkInfoUnitWithTarget(InfoUnit infoChain, TargetNum01 target){
+    public boolean checkInfoUnitWithTarget(InfoChain infoChain, TargetNum01 target){
 
         return target.checkRule(infoChain);
     }

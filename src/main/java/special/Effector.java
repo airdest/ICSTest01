@@ -1,4 +1,6 @@
-package basic;
+package special;
+
+import basic.InfoUnit;
 
 import java.util.ArrayList;
 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Effector {
 
-    public ArrayList<InfoMap> getInfoMapList;
+    public ArrayList<InfoUnit> getInfoMapList;
 
 
 }

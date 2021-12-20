@@ -1,7 +1,7 @@
 package demo.receptors;
 
-import basic.InfoUnit;
-import basic.Receptor;
+import basic.InfoChain;
+import special.Receptor;
 
 import java.util.ArrayList;
 
@@ -10,15 +10,15 @@ import java.util.ArrayList;
  */
 public class ReceptorNum01 extends Receptor {
 
-    ArrayList<InfoUnit> infoUnitList ;
+    ArrayList<InfoChain> infoChainList;
 
-    public ReceptorNum01(ArrayList<InfoUnit> infoUnitList) {
-
-
+    public ReceptorNum01(ArrayList<InfoChain> infoChainList) {
 
 
 
 
-        this.infoUnitList = infoUnitList;
+
+
+        this.infoChainList = infoChainList;
     }
 }

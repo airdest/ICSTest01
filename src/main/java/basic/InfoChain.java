@@ -1,49 +1,26 @@
 package basic;
 
-public class InfoChain extends InfoUnit{
+import constant.MagicValue;
 
-    Object left;
-    Object right;
-    long createdTime;
-    long lifeTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-    public InfoChain(Object left, Object right, long createdTime, long lifeTime) {
-        this.left = left;
-        this.right = right;
-        this.createdTime = createdTime;
-        this.lifeTime = lifeTime;
-    }
+/**
+ * 信息链
+ * 1.一个信息链可以是一个单独的信息单元
+ * 例如：(A)
+ * 2.一个信息链可以是任意多个信息单元的链接，但最大数量遵循数量限制
+ * 例如:
+ * (A)-(B-C)
+ * (A)-(B-C)-(D)
+ */
+public class InfoChain extends InfoUnit {
+
+    /**
+     * 信息链存储的信息链接，是有序的从左到右，即第一个到最后一个。
+     */
+    ArrayList<InfoUnit> infoUnitList = null;
 
 
-    public Object getLeft() {
-        return left;
-    }
-
-    public void setLeft(Object left) {
-        this.left = left;
-    }
-
-    public Object getRight() {
-        return right;
-    }
-
-    public void setRight(Object right) {
-        this.right = right;
-    }
-
-    public long getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(long createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public long getLifeTime() {
-        return lifeTime;
-    }
-
-    public void setLifeTime(long lifeTime) {
-        this.lifeTime = lifeTime;
-    }
 }

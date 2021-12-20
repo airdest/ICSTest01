@@ -1,11 +1,11 @@
-package func;
+package special;
 
 import demo.targets.TargetNum01;
 
 import java.util.ArrayList;
 
 /**
- * func.Module
+ * special.Module
  * 一个Module包含多个Target
  */
 public class Module {

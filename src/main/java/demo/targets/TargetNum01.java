@@ -1,7 +1,7 @@
 package demo.targets;
 
-import basic.InfoUnit;
-import basic.Target;
+import basic.InfoChain;
+import special.Target;
 
 /**
  * 目标
@@ -9,8 +9,8 @@ import basic.Target;
 public class TargetNum01 extends Target {
 
     @Override
-    public Boolean checkRule(InfoUnit infoUnit) {
+    public Boolean checkRule(InfoChain infoChain) {
 
-        return super.checkRule(infoUnit);
+        return super.checkRule(infoChain);
     }
 }

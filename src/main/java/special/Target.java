@@ -1,4 +1,6 @@
-package basic;
+package special;
+
+import basic.InfoChain;
 
 /**
  * 目标
@@ -19,10 +21,10 @@ public class Target {
     /**
      * 匹配成功后需要增加权值、生存时间
      * 匹配失败则需要减少权值、生存时间
-     * @param infoUnit
+     * @param infoChain
      * @return
      */
-    public Boolean checkRule(InfoUnit infoUnit) {
+    public Boolean checkRule(InfoChain infoChain) {
 
 
 
