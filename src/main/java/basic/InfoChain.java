@@ -29,13 +29,11 @@ public class InfoChain extends InfoUnit {
 
     @Override
     public String toString() {
-        return "InfoChain{" +
-                "infoUnitList=" + infoUnitList +
+        return "信息链{" +
+                "信息链存储的信息单元列表=" + infoUnitList +
                 ", infoID=" + infoID +
                 ", layer=" + layer +
                 ", survivalTime=" + survivalTime +
-                ", basicInfo=" + basicInfo +
-                ", linkToList=" + linkToList +
                 '}';
     }
 }

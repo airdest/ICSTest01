@@ -56,11 +56,11 @@ public class InfoChainMaker {
 
         //随机选取一个信息元进行链接
         i = i + 1;
-        System.out.println("i = " + i);
+        //System.out.println("i = " + i);
         InfoUnit infoUnit = infoUnitMap.get(i);
 
-        System.out.println("当前infoUnitMap = " + infoUnitMap+"size:"+infoUnitMap.size());
-        System.out.println("随机选取一个infoUnit = " + infoUnit+"ID"+infoUnit.getInfoID());
+        //System.out.println("当前infoUnitMap = " + infoUnitMap+"size:"+infoUnitMap.size());
+        //System.out.println("随机选取一个infoUnit = " + infoUnit+"ID"+infoUnit.getInfoID());
 
         //初始化信息链
         InfoChain infoChain = new InfoChain();
@@ -75,7 +75,7 @@ public class InfoChainMaker {
         if (linkToList.size() == 0){
             InfoUnit linkUnit = infoUnitMap.get(random.nextInt(idNumber)+1);
             InfoLink infoLink = new InfoLink();
-            infoLink.setSurvivalTime(MagicValue.DEFAULT_SURVIVAL_TIME);
+            infoLink.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
             infoLink.setProbablity(random.nextDouble());
             //设置指向信息元及其概率
             linkToList.put(linkUnit,infoLink);
@@ -102,12 +102,12 @@ public class InfoChainMaker {
         infoChain.setInfoUnitList(infoUnitList);
 
         //设置信息链持续时间
-        infoChain.setSurvivalTime(MagicValue.DEFAULT_SURVIVAL_TIME);
+        infoChain.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
 
 
         //信息链作为信息元，加入队列
 
-        System.out.println("要设置的infoChain ID"+idNumber);
+        //System.out.println("要设置的infoChain ID"+idNumber);
         infoChain.setInfoID(idNumber);
         infoUnitMap.put(idNumber,infoChain);
 
@@ -191,8 +191,8 @@ public class InfoChainMaker {
         ArrayList<Integer> removeList = new ArrayList<>();
         for (Integer integer : integers) {
             InfoUnit infoUnit = infoUnitMap.get(integer);
-            infoUnit.setSurvivalTime(infoUnit.getSurvivalTime() - timeToSub);
-            if (infoUnit.getSurvivalTime() <= 0){
+            infoUnit.setLinkTime(infoUnit.getLinkTime() - timeToSub);
+            if (infoUnit.getLinkTime() <= 0){
                 removeList.add(integer);
             }
             infoUnitMap.put(integer,infoUnit);
@@ -204,18 +204,6 @@ public class InfoChainMaker {
 
     }
 
-    @Override
-    public String toString() {
-        return "InfoChainMaker{" +
-                "receptorInfoMap=" + receptorInfoMap +
-                ", effectorInfoMap=" + effectorInfoMap +
-                ", infoUnitMap=" + infoUnitMap +
-                ", idNumber=" + idNumber +
-                ", receptorUpdateTime=" + receptorUpdateTime +
-                ", effectorUpdateTime=" + effectorUpdateTime +
-                ", infoChainCreateTime=" + infoChainCreateTime +
-                '}';
-    }
 
 
     public HashMap<Integer, InfoUnit> getReceptorInfoMap() {

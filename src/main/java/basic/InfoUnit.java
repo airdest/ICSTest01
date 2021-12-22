@@ -62,12 +62,12 @@ public class InfoUnit  {
         this.layer = layer;
     }
 
-    public Integer getSurvivalTime() {
+    public Integer getLinkTime() {
         return survivalTime;
     }
 
-    public void setSurvivalTime(Integer survivalTime) {
-        this.survivalTime = survivalTime;
+    public void setLinkTime(Integer linkTime) {
+        this.survivalTime = linkTime;
     }
 
     public Object getBasicInfo() {
@@ -86,8 +86,8 @@ public class InfoUnit  {
         this.linkToList = linkToList;
     }
 
-    @Override
-    public String toString() {
+
+    public String toStringComplicated() {
         return "InfoUnit{" +
                 "infoID=" + infoID +
                 ", layer=" + layer +
@@ -95,5 +95,14 @@ public class InfoUnit  {
                 ", basicInfo=" + basicInfo +
                 ", linkToList=" + linkToList +
                 '}';
+    }
+
+    @Override
+    public String toString(){
+        return "InfoUnit{" +
+                "infoID=" + infoID +
+                ", basicInfo=" + basicInfo +
+                '}';
+
     }
 }

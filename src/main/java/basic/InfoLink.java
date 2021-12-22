@@ -15,7 +15,7 @@ public class InfoLink extends InfoChain {
     /**
      * 链接存活时长
      */
-    Integer survivalTime;
+    Integer linkTime;
 
     /**
      * 链接触发概率
@@ -23,13 +23,13 @@ public class InfoLink extends InfoChain {
     Double probablity = 0.0;
 
     @Override
-    public Integer getSurvivalTime() {
-        return survivalTime;
+    public Integer getLinkTime() {
+        return linkTime;
     }
 
     @Override
-    public void setSurvivalTime(Integer survivalTime) {
-        this.survivalTime = survivalTime;
+    public void setLinkTime(Integer linkTime) {
+        this.linkTime = linkTime;
     }
 
     public Double getProbablity() {
@@ -43,14 +43,8 @@ public class InfoLink extends InfoChain {
     @Override
     public String toString() {
         return "InfoLink{" +
-                "infoUnitList=" + infoUnitList +
-                ", survivalTime=" + survivalTime +
+                ", linkTime=" + linkTime +
                 ", probablity=" + probablity +
-                ", infoID=" + infoID +
-                ", layer=" + layer +
-                ", survivalTime=" + survivalTime +
-                ", basicInfo=" + basicInfo +
-                ", linkToList=" + linkToList +
                 '}';
     }
 }

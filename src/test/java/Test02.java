@@ -3,7 +3,6 @@ import basic.InfoChainMaker;
 import basic.InfoUnit;
 import basic.MagicValue;
 import special.Effector;
-import special.Receptor;
 
 import java.util.ArrayList;
 
@@ -30,13 +29,13 @@ public class Test02 {
         actionInfoUnit1.setBasicInfo(action1);
         actionInfoUnit1.setInfoID(infoChainMaker.getIdNumber());
         infoChainMaker.setIdNumber(infoChainMaker.getIdNumber()+1);
-        actionInfoUnit1.setSurvivalTime(MagicValue.DEFAULT_SURVIVAL_TIME);
+        actionInfoUnit1.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
 
         InfoUnit actionInfoUnit2 = new InfoUnit();
         actionInfoUnit2.setBasicInfo(action2);
         actionInfoUnit2.setInfoID(infoChainMaker.getIdNumber());
         infoChainMaker.setIdNumber(infoChainMaker.getIdNumber()+1);
-        actionInfoUnit2.setSurvivalTime(MagicValue.DEFAULT_SURVIVAL_TIME);
+        actionInfoUnit2.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
 
 
 
