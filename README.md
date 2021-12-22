@@ -1,6 +1,6 @@
 # OpenICS
 
-有不懂的看WIKI，正在完善中，有问题提issue，有交流意向加群。
+有不懂的看WIKI，正在完善中，有问题提issue，有交流意向加群157587606。
 
 TODO list：
 
