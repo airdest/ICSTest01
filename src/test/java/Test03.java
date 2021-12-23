@@ -47,7 +47,7 @@ public class Test03 {
         //设置到行动器
         effector.setActionInfoUnitList(actionList);
 
-
+        //输出查看行动信息单元列表
         System.out.println("actionList = " + actionList);
 
         //3.初始化ICM，设置行动器
@@ -61,42 +61,85 @@ public class Test03 {
 
         for (int i = 0; i < maxInfoUnitLimit; i++) {
 
+            //生存时间控制 单位:ms
+            infoChainMaker.killLifeTime(3000);
+
             //4.组合一个信息链
             InfoChain infoChain = infoChainMaker.getRandomInfoChain();
 
+            //如果组合出的信息链为空，说明信息池中所有信息元已经死亡，程序终止
             if (infoChain == null){
+                System.out.println("信息池中所有信息元都死掉了，Target拟合失败。");
                 break;
             }
 
-            //5.Target规则检测
-            //检测到action1按下按钮，则增加权重和存活时间
 
+
+            //查看组合出的信息链
             System.out.println("组合出的信息链："+infoChain.toString());
 
-            //v0.0.3 增加信息链最大信息元数量限制部分代码
-            ArrayList<InfoUnit> flattenInfoChain = infoChainMaker.flattenInfoChain(infoChain.getInfoUnitList());
-            System.out.println("信息链展开："+flattenInfoChain);
+            //5.Target规则检测
+            //v0.0.5 检测到action1按下按钮，则增加权重和存活时间
+            //目前测试不生成Target类，仅用简单的判断代替Target部分。
 
-            //v0.0.4 最长信息链限制：
-            //超出长度限制会被销毁
+            //先展开信息链
+            ArrayList<InfoUnit> flattenInfoChain = infoChainMaker.flattenInfoChain(infoChain.getInfoUnitList());
+
+            //最长信息链限制，超出长度限制会被销毁
+            boolean died = false;
             if (flattenInfoChain.size() > MagicValue.DEFAULT_INFO_UNIT_LENGTH){
                 infoChainMaker.killInfoChainByID(infoChain.getInfoID());
+                died = true;
             }
 
-            //6.生存时间控制 单位:ms
-            infoChainMaker.killLifeTime(5000);
+            System.out.println("信息链展开："+flattenInfoChain);
+            //如果信息链没死，进行规则判断
+            //判断展开的信息单元中，信息单元包含按下按钮的数量占总信息单元的比例
+            //占比越大，增加的存活时间和权重越大，如果没有按下按钮，则减少权重和存活时间。
+
+
+            int button =0;
+            int stop = 0;
+
+            for (InfoUnit infoUnit : flattenInfoChain) {
+                if ("按下按钮".equals(infoUnit.getBasicInfo())){
+                    button++;
+                }
+
+                if ("静止1秒".equals(infoUnit.getBasicInfo())){
+                    stop++;
+                }
+            }
+
+            //计算权值增加的比率
+            double ratio = (double) button / stop ;
+
+            //得出要增加的权值
+            double weightAdd = 0.1 * ratio;
+
+            //如果没有按下按钮，则惩罚
+            if (weightAdd == 0){
+                weightAdd = -0.1;
+            }
+
+            //1,信息池所有信息元指向该信息链的权值更新
+
+            //2,信息链所包含的信息单元被指向的权值更新
+
+
+
+
+            //TODO 权值更新就像神经网络的反向传播算法一样，有点意思...
+
+
+
 
             //7.执行信息链
             //effector.executeInfoChain(infoChain);
 
-
-            //Thread.sleep(500);
-
-            //如果达到最大信息元数量限制，就停止生成信息元
-            if (flattenInfoChain.size() >= MagicValue.DEFAULT_INFO_UNIT_NUMBER){
-                break;
-            }
         }
+
+        System.out.println("信息链数量达到上限，构造结束。");
 
 
     }

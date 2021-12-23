@@ -121,6 +121,9 @@ public class InfoChainMakerLimit {
             //设置后更新到infoUnit
             infoUnit.setLinkToList(linkToList);
 
+            //infoUnit更新后，要更新到信息池中
+            infoUnitMap.put(infoUnit.getInfoID(),infoUnit);
+
             //设置信息链内容,必须按顺序加入
             infoUnitList.add(infoUnit);
             //System.out.println("linkUnit2 = " + linkUnit);

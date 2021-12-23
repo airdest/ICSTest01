@@ -103,13 +103,32 @@ public class InfoUnit  {
         return "InfoUnit{" +
                 "infoID=" + infoID +
                 ", basicInfo=" + basicInfo +
+                ", linkToList=" + getLinkedListString() +
                 '}';
 
     }
 
+    public String getLinkedListString(){
+        StringBuilder linkedToList = new StringBuilder("");
+        linkedToList.append("(");
+        for (InfoUnit infoUnit : linkToList.keySet()) {
+            linkedToList.append("infoID=");
+            linkedToList.append(infoUnit.infoID);
+            linkedToList.append(",probablity=");
+            linkedToList.append(linkToList.get(infoUnit).getProbablity());
+        }
+
+        linkedToList.append(")");
+        return linkedToList.toString();
+    }
+
 
     public boolean isInfoChain(){
-        return this instanceof InfoChain;
+        if (this instanceof InfoChain){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }
