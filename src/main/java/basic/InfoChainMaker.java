@@ -55,8 +55,14 @@ public class InfoChainMaker {
         int i = random.nextInt(idNumber);
 
         //随机选取一个信息元进行链接
+        /**
+         * TODO
+         * 现实世界的神经元，不是随机进行链接的，
+         * 而是基于某种机制，被触发后进行链接
+         * 目前不了解这个机制，所以简单设置为随机的
+         */
         i = i + 1;
-        //System.out.println("i = " + i);
+        System.out.println("随机选取的Left信息元：i = " + i);
         InfoUnit infoUnit = infoUnitMap.get(i);
 
         //System.out.println("当前infoUnitMap = " + infoUnitMap+"size:"+infoUnitMap.size());
@@ -73,11 +79,16 @@ public class InfoChainMaker {
 
         //如果没有链接，就随机链接
         if (linkToList.size() == 0){
-            InfoUnit linkUnit = infoUnitMap.get(random.nextInt(idNumber)+1);
+            System.out.println("没有链接，随机链接");
+            int randomId = random.nextInt(idNumber);
+            InfoUnit linkUnit = infoUnitMap.get(randomId);
+            //System.out.println("randomId = " + randomId);
+            //System.out.println("linkUnit0 = " + linkUnit);
             InfoLink infoLink = new InfoLink();
             infoLink.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
             infoLink.setProbablity(random.nextDouble());
             //设置指向信息元及其概率
+            //System.out.println("linkUnit1 = " + linkUnit);
             linkToList.put(linkUnit,infoLink);
 
             //设置后更新到infoUnit
@@ -85,10 +96,12 @@ public class InfoChainMaker {
 
             //设置信息链内容,必须按顺序加入
             infoUnitList.add(infoUnit);
+            //System.out.println("linkUnit2 = " + linkUnit);
             infoUnitList.add(linkUnit);
 
 
         }else{
+            System.out.println("存在链接，选取最大概率进行链接");
             //否则就寻找最大概率的InfoUnit
             InfoUnit maxProbablityInfoUnit = getMaxProbablityInfoUnit(linkToList);
 
@@ -133,7 +146,7 @@ public class InfoChainMaker {
             InfoLink infoLink = linkToMap.get(infoUnit);
             if (infoLink.getProbablity() > max){
                 max = infoLink.getProbablity();
-                maxProbablityInfoUnit = infoLink;
+                maxProbablityInfoUnit = infoUnit;
             }
 
         }

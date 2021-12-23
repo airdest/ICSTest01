@@ -44,7 +44,7 @@ public class Test02 {
 
         effector.setActionInfoUnitList(actionList);
 
-        System.out.println(actionList);
+        System.out.println("actionList = " + actionList);
 
         //3.初始化信息结构拟合器
         //infoChainMaker.getFromReceptor(receptor);

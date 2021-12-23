@@ -30,8 +30,8 @@ public class InfoChain extends InfoUnit {
     @Override
     public String toString() {
         return "信息链{" +
-                "信息链存储的信息单元列表=" + infoUnitList +
-                ", infoID=" + infoID +
+                "infoID=" + infoID +
+                ", 信息链存储的信息单元列表=" + infoUnitList +
                 ", layer=" + layer +
                 ", survivalTime=" + survivalTime +
                 '}';
