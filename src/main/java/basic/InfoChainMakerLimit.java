@@ -10,7 +10,7 @@ import java.util.Set;
 
 /**
  *
- * 信息链制造器  广义ICS
+ * 信息链制造器  狭义ICS 资源受限
  *
  *
  * 流程：
@@ -21,7 +21,7 @@ import java.util.Set;
  *
  *
  */
-public class InfoChainMaker {
+public class InfoChainMakerLimit {
 
     //接收器信息池
     HashMap<Integer,InfoUnit> receptorInfoMap = new HashMap<>();

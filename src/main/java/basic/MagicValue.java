@@ -9,7 +9,7 @@ public interface MagicValue {
     Integer DEFAULT_SURVIVAL_TIME = 1000 * 60 * 10;
 
     //信息池默认最大信息元数量
-    Integer DEFAULT_INFO_UNIT_NUMBER = 10000;
+    Integer DEFAULT_INFO_UNIT_NUMBER = 30;
 
     //信息链最大信息元数量，即信息链最大长度
     Integer DEFAULT_INFO_UNIT_LENGTH = 5;
