@@ -11,6 +11,7 @@ import java.util.Set;
 /**
  *
  * 信息链制造器  广义ICS
+ * v0.0.4 一般情况下不会使用广义ICS，所以这个类被废弃，作为参考，不再更新
  *
  *
  * 流程：
@@ -21,6 +22,7 @@ import java.util.Set;
  *
  *
  */
+@Deprecated
 public class InfoChainMaker {
 
     //接收器信息池
