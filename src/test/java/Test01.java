@@ -4,6 +4,7 @@ import special.Effector;
 import special.Receptor;
 import special.Target;
 
+@Deprecated
 public class Test01 {
 
     public static void main(String[] args) {

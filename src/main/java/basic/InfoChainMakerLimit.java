@@ -151,6 +151,15 @@ public class InfoChainMakerLimit {
     }
 
     /**
+     * v0.0.4
+     * 删除信息池中指定id的infoChain
+     */
+    public void killInfoChainByID(Integer idNumber){
+        infoUnitMap.remove(idNumber);
+    }
+
+
+    /**
      * 获取指向信息元列表中最大概率指向的信息元
      * @param linkToMap
      * @return

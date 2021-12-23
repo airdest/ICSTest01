@@ -6,6 +6,7 @@ import special.Effector;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class Test02 {
 
     public static void main(String[] args) throws InterruptedException {

@@ -87,7 +87,7 @@ public class InfoChainMaker {
             InfoLink infoLink = new InfoLink();
             infoLink.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
 
-            //不确定的部分，先用黑盒子顶上，如果知道原理，就可以用程序或者ICS替代了。
+            //不确定的部分，先用黑盒子顶上，如果知道原理，就可以用程序或者ICS系统顶上
             infoLink.setProbablity(random.nextDouble());
 
 
