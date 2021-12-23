@@ -44,17 +44,37 @@ public class InfoChainMakerLimit {
     //信息链创建次数
     Integer infoChainCreateTime = 0;
 
+
+
+    public Integer getRandomIDNumber(){
+        Random random = new Random(666);
+        Set<Integer> integers = infoUnitMap.keySet();
+        ArrayList<Integer> integerArrayList = new ArrayList<>(integers);
+
+        int size = integerArrayList.size();
+        if (size == 0){
+            return 0;
+        }else{
+            return integerArrayList.get(random.nextInt(size));
+        }
+
+    }
+
     /**
      * 根据当前已有信息元、以及存活时常、概率等，生成一个信息链，放入信息池并返回。
      * @return
      */
     public InfoChain getRandomInfoChain(){
 
+        if (infoUnitMap.size() == 0){
+
+            System.out.println("信息池为空！！"+infoUnitMap);
+           return null;
+        }
+
 
         Random random = new Random(666);
 
-        //-1是因为在把信息链放入map后，又加了1变为4，而这里在取的时候，实际上还是只有3个，所以限制为3，取值0，1，2再+1，就能得到正确取值
-        int i = random.nextInt(idNumber -1);
 
         //随机选取一个信息元进行链接
         /**
@@ -63,9 +83,7 @@ public class InfoChainMakerLimit {
          * 而是基于某种机制，被触发后进行链接
          * 目前不了解这个机制，所以简单设置为随机的
          */
-        i = i + 1;
-        System.out.println("随机选取的Left信息元：i = " + i);
-        InfoUnit infoUnit = infoUnitMap.get(i);
+        InfoUnit infoUnit = infoUnitMap.get(getRandomIDNumber());
 
         //System.out.println("当前infoUnitMap = " + infoUnitMap+"size:"+infoUnitMap.size());
         //System.out.println("随机选取一个infoUnit = " + infoUnit+"ID"+infoUnit.getInfoID());
@@ -84,8 +102,7 @@ public class InfoChainMakerLimit {
         if (linkToList.size() == 0){
             //System.out.println("没有链接，随机链接");
             System.out.println("当前idNumber"+idNumber);
-            int randomId = random.nextInt(idNumber - 1);
-            randomId =randomId + 1;
+            int randomId = getRandomIDNumber();
             InfoUnit linkUnit = infoUnitMap.get(randomId);
             //System.out.println("randomId = " + randomId);
             //System.out.println("linkUnit0 = " + linkUnit);
@@ -239,6 +256,10 @@ public class InfoChainMakerLimit {
 
         for (Integer integer : removeList) {
             infoUnitMap.remove(integer);
+        }
+
+        if (infoUnitMap.size() == 0){
+            System.out.println("所有信息元都死掉了。");
         }
 
     }

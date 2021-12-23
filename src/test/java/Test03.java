@@ -64,6 +64,10 @@ public class Test03 {
             //4.组合一个信息链
             InfoChain infoChain = infoChainMaker.getRandomInfoChain();
 
+            if (infoChain == null){
+                break;
+            }
+
             //5.Target规则检测
             //检测到action1按下按钮，则增加权重和存活时间
 
