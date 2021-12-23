@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class InfoChain extends InfoUnit {
 
+
     /**
      * 信息链存储的信息链接，是有序的从左到右，即第一个到最后一个。
      */
@@ -36,4 +37,11 @@ public class InfoChain extends InfoUnit {
                 ", survivalTime=" + survivalTime +
                 '}';
     }
+
+
+
+
+
+
+
 }

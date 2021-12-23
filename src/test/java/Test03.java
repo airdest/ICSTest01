@@ -25,12 +25,15 @@ public class Test03 {
 
         InfoUnit actionInfoUnit1 = new InfoUnit();
         actionInfoUnit1.setBasicInfo(action1);
+        //设置id 为 1 ，并+1
         actionInfoUnit1.setInfoID(infoChainMaker.getIdNumber());
         infoChainMaker.setIdNumber(infoChainMaker.getIdNumber()+1);
         actionInfoUnit1.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
 
+
         InfoUnit actionInfoUnit2 = new InfoUnit();
         actionInfoUnit2.setBasicInfo(action2);
+        //设置id 为 2 ，并+1
         actionInfoUnit2.setInfoID(infoChainMaker.getIdNumber());
         infoChainMaker.setIdNumber(infoChainMaker.getIdNumber()+1);
         actionInfoUnit2.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
@@ -53,6 +56,7 @@ public class Test03 {
         //v0.0.2新增信息池默认最大信息元数量限制部分代码
         int maxInfoUnitLimit = MagicValue.DEFAULT_INFO_UNIT_NUMBER - effector.getActionInfoUnitList().size() ;
 
+
         for (int i = 0; i < maxInfoUnitLimit; i++) {
 
             //4.组合一个信息链
@@ -61,8 +65,11 @@ public class Test03 {
             //5.Target规则检测
             //检测到action1按下按钮，则增加权重和存活时间
 
-            System.out.println(infoChain.toString());
+            System.out.println("组合出的信息链："+infoChain.toString());
 
+            //v0.0.3 增加信息链最大信息元数量限制部分代码
+            ArrayList<InfoUnit> flattenInfoChain = infoChainMaker.flattenInfoChain(infoChain.getInfoUnitList());
+            System.out.println("信息链展开："+flattenInfoChain);
 
             //6.生存时间控制 单位:ms
             infoChainMaker.killLifeTime(10);
@@ -70,9 +77,14 @@ public class Test03 {
             //7.执行信息链
             effector.executeInfoChain(infoChain);
 
+
+
             Thread.sleep(500);
 
-
+            //如果达到最大信息元数量限制，就停止生成信息元
+            if (flattenInfoChain.size() <= MagicValue.DEFAULT_INFO_UNIT_LENGTH){
+                break;
+            }
         }
 
 

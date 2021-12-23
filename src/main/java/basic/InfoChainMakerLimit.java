@@ -52,7 +52,9 @@ public class InfoChainMakerLimit {
 
 
         Random random = new Random(666);
-        int i = random.nextInt(idNumber);
+
+        //-1是因为在把信息链放入map后，又加了1变为4，而这里在取的时候，实际上还是只有3个，所以限制为3，取值0，1，2再+1，就能得到正确取值
+        int i = random.nextInt(idNumber -1);
 
         //随机选取一个信息元进行链接
         /**
@@ -75,12 +77,15 @@ public class InfoChainMakerLimit {
         ArrayList<InfoUnit> infoUnitList = new ArrayList<>();
 
         //判断是否有链接
+        System.out.println("当前infoUnitMap:"+infoUnitMap);
         HashMap<InfoUnit, InfoLink> linkToList = infoUnit.getLinkToList();
 
         //如果没有链接，就随机链接
         if (linkToList.size() == 0){
-            System.out.println("没有链接，随机链接");
-            int randomId = random.nextInt(idNumber);
+            //System.out.println("没有链接，随机链接");
+            System.out.println("当前idNumber"+idNumber);
+            int randomId = random.nextInt(idNumber - 1);
+            randomId =randomId + 1;
             InfoUnit linkUnit = infoUnitMap.get(randomId);
             //System.out.println("randomId = " + randomId);
             //System.out.println("linkUnit0 = " + linkUnit);
@@ -88,6 +93,11 @@ public class InfoChainMakerLimit {
             infoLink.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
             infoLink.setProbablity(random.nextDouble());
             //设置指向信息元及其概率
+            if (linkUnit == null){
+                System.out.println("当前选取的randomID:"+randomId);
+                System.out.println("指向的信息元不能为空");
+                System.exit(100);
+            }
             //System.out.println("linkUnit1 = " + linkUnit);
             linkToList.put(linkUnit,infoLink);
 
@@ -101,7 +111,7 @@ public class InfoChainMakerLimit {
 
 
         }else{
-            System.out.println("存在链接，选取最大概率进行链接");
+            //System.out.println("存在链接，选取最大概率进行链接");
             //否则就寻找最大概率的InfoUnit
             InfoUnit maxProbablityInfoUnit = getMaxProbablityInfoUnit(linkToList);
 
@@ -122,12 +132,19 @@ public class InfoChainMakerLimit {
 
         //System.out.println("要设置的infoChain ID"+idNumber);
         infoChain.setInfoID(idNumber);
+
+
+
+        //必须先放进去，再自增idNumber，不然会出现错位
         infoUnitMap.put(idNumber,infoChain);
+
+        //设置完之后，自身+1，所以下次组合的时候要减一
+        idNumber = idNumber + 1;
 
         //信息链组合次数+1
         infoChainCreateTime = infoChainCreateTime + 1;
 
-        idNumber = idNumber + 1;
+
 
         //返回信息链
         return infoChain;
@@ -274,4 +291,31 @@ public class InfoChainMakerLimit {
     public void setInfoChainCreateTime(Integer infoChainCreateTime) {
         this.infoChainCreateTime = infoChainCreateTime;
     }
+
+
+    /**
+     * v0.0.3 信息单元展开
+     * 通过展开后的列表就可以直接判断信息链长度
+     * @return
+     */
+    public ArrayList<InfoUnit> flattenInfoChain(ArrayList<InfoUnit> infoUnitList){
+        ArrayList<InfoUnit> flattenList = new ArrayList<>();
+        //System.out.println("infoUnitList = " + infoUnitList);
+        for (int i = 0; i < infoUnitList.size(); i++) {
+            InfoUnit infoUnit = infoUnitList.get(i);
+            //如果是信息链，把它子项展开，再加入
+            if (infoUnit.isInfoChain()){
+                InfoChain infoChain = (InfoChain) infoUnit;
+                ArrayList<InfoUnit> innerInfoChainList = infoChain.getInfoUnitList();
+                ArrayList<InfoUnit> innerUnitList = flattenInfoChain(innerInfoChainList);
+                flattenList.addAll(innerUnitList);
+            }else{
+                //是信息单元则直接加入
+                flattenList.add(infoUnit);
+            }
+        }
+        return  flattenList;
+    }
+
+
 }

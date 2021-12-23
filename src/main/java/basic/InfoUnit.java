@@ -18,6 +18,7 @@ import java.util.HashMap;
  */
 public class InfoUnit  {
 
+
     /**
      * 信息元的id，一般是从0开始的整数，用作系统内对不同信息元进行区分
      */
@@ -105,4 +106,10 @@ public class InfoUnit  {
                 '}';
 
     }
+
+
+    public boolean isInfoChain(){
+        return this instanceof InfoChain;
+    }
+
 }
