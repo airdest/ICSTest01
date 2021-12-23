@@ -86,7 +86,11 @@ public class InfoChainMaker {
             //System.out.println("linkUnit0 = " + linkUnit);
             InfoLink infoLink = new InfoLink();
             infoLink.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
+
+            //不确定的部分，先用黑盒子顶上，如果知道原理，就可以用程序或者ICS替代了。
             infoLink.setProbablity(random.nextDouble());
+
+
             //设置指向信息元及其概率
             //System.out.println("linkUnit1 = " + linkUnit);
             linkToList.put(linkUnit,infoLink);

@@ -78,7 +78,6 @@ public class Test03 {
             effector.executeInfoChain(infoChain);
 
 
-
             Thread.sleep(500);
 
             //如果达到最大信息元数量限制，就停止生成信息元

@@ -26,7 +26,7 @@ public class Target {
      * @param infoChain
      * @return
      */
-    public Boolean checkRule(InfoChain infoChain) {
+    public Double checkRule(InfoChain infoChain) {
 
 
 
