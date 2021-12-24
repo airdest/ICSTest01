@@ -95,12 +95,12 @@ public class InfoChainMakerLimit {
         ArrayList<InfoUnit> infoUnitList = new ArrayList<>();
 
         //判断是否有链接
-        System.out.println("当前infoUnitMap:"+infoUnitMap);
+        //System.out.println("当前infoUnitMap:"+infoUnitMap);
         HashMap<InfoUnit, InfoLink> linkToList = infoUnit.getLinkToList();
 
         //如果没有链接，就随机链接
         if (linkToList.size() == 0){
-            System.out.println("当前idNumber"+idNumber);
+            //System.out.println("当前idNumber"+idNumber);
             InfoUnit linkUnit = infoUnitMap.get(getRandomIDNumber());
             InfoLink infoLink = getRandomInfoLink();
 
@@ -132,7 +132,7 @@ public class InfoChainMakerLimit {
             InfoUnit maxProbablityInfoUnit = getMaxProbablityInfoUnit(linkToList);
 
             if (v > max){
-                System.out.println("当前idNumber"+idNumber);
+                //System.out.println("当前idNumber"+idNumber);
                 InfoUnit linkUnit = infoUnitMap.get(getRandomIDNumber());
                 InfoLink infoLink = getRandomInfoLink();
 

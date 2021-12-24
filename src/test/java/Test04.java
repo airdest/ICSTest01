@@ -1,4 +1,7 @@
-import basic.*;
+import basic.InfoChain;
+import basic.InfoChainMakerLimit;
+import basic.InfoUnit;
+import basic.MagicValue;
 import special.Effector;
 import special.Reward;
 
@@ -9,9 +12,10 @@ import java.util.HashMap;
  *  斯纳金箱 实验1 按下按钮就有奖励(权值提高)
  *  检验ICS是否具有尽可能拟合目标的能力
  *
+ *  增加Reward is enough思想
+ *
  */
-@Deprecated
-public class Test03 {
+public class Test04 {
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -68,7 +72,8 @@ public class Test03 {
         for (int i = 0; i < maxInfoUnitLimit; i++) {
 
             //生存时间控制 单位:ms
-            infoChainMaker.killLifeTime(3000);
+            //TODO infoChainMaker应该实现各自的寿命减少方法，或者暂时不考虑寿命问题
+            infoChainMaker.killLifeTime(0);
 
             //4.组合一个信息链
             InfoChain infoChain = infoChainMaker.getRandomInfoChain();
@@ -82,7 +87,7 @@ public class Test03 {
 
 
             //查看组合出的信息链
-            System.out.println("组合出的信息链："+infoChain.toString());
+            //System.out.println("组合出的信息链："+infoChain.toString());
 
 
             //先展开信息链
@@ -97,21 +102,23 @@ public class Test03 {
                 died = true;
             }
 
-            System.out.println("信息链展开："+flattenInfoChain);
-            //如果信息链没死，进行Target规则判断
-            //HashMap<Integer, InfoUnit> weightedInfoPool = target01.checkRule(flattenInfoChain, infoChainMaker.getInfoUnitMap());
-            //权值更新
-            //infoChainMaker.setInfoUnitMap(weightedInfoPool);
 
-            Reward weightsAdd = target01.getRewardChange(flattenInfoChain);
+            //如果信息链没死，进行Target规则判断，并展示，死掉的无需展示
 
-            InfoChain infochainWeighted = target01.updateInfoChainWeights(infoChain, weightsAdd);
+            if (!died){
+                System.out.println("信息链展开："+flattenInfoChain);
+                Reward rewardChange = target01.getRewardChange(flattenInfoChain);
 
-            ArrayList<InfoUnit> infoChainList = target01.getInfoUnitList(infochainWeighted);
+                InfoChain infochainWeighted = target01.updateInfoChainWeights(infoChain, rewardChange);
 
-            HashMap<Integer, InfoUnit> updatedInfoUnitMap = target01.updateInfoUnitMap(infoChainList, infoChainMaker.getInfoUnitMap());
+                ArrayList<InfoUnit> infoChainList = target01.getInfoUnitList(infochainWeighted);
 
-            infoChainMaker.setInfoUnitMap(updatedInfoUnitMap);
+                HashMap<Integer, InfoUnit> updatedInfoUnitMap = target01.updateInfoUnitMap(infoChainList, infoChainMaker.getInfoUnitMap());
+
+                infoChainMaker.setInfoUnitMap(updatedInfoUnitMap);
+
+            }
+
 
 
             //7.执行信息链
