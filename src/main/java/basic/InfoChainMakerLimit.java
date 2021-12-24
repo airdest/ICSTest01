@@ -23,6 +23,9 @@ import java.util.Set;
  */
 public class InfoChainMakerLimit {
 
+    //随机对象
+    Random random = new Random(666);
+
     //接收器信息池
     HashMap<Integer,InfoUnit> receptorInfoMap = new HashMap<>();
 
@@ -45,14 +48,18 @@ public class InfoChainMakerLimit {
     Integer infoChainCreateTime = 0;
 
 
-
+    /**
+     * 随便获取一个信息池里的InfoUnit的IDNumber
+     * @return
+     */
     public Integer getRandomIDNumber(){
-        Random random = new Random(666);
         Set<Integer> integers = infoUnitMap.keySet();
         ArrayList<Integer> integerArrayList = new ArrayList<>(integers);
 
         int size = integerArrayList.size();
+
         if (size == 0){
+            System.out.println("信息池为空！！");
             return 0;
         }else{
             return integerArrayList.get(random.nextInt(size));
@@ -62,6 +69,7 @@ public class InfoChainMakerLimit {
 
     /**
      * 根据当前已有信息元、以及存活时常、概率等，生成一个信息链，放入信息池并返回。
+     * (人类大脑的神经网络，不考虑时间的话，链接总是发生在两个神经元之间，所以信息链总是两个信息单元的组合)
      * @return
      */
     public InfoChain getRandomInfoChain(){
@@ -73,16 +81,8 @@ public class InfoChainMakerLimit {
         }
 
 
-        Random random = new Random(666);
-
 
         //随机选取一个信息元进行链接
-        /**
-         * TODO
-         * 现实世界的神经元，不是随机进行链接的，
-         * 而是基于某种机制，被触发后进行链接
-         * 目前不了解这个机制，所以简单设置为随机的
-         */
         InfoUnit infoUnit = infoUnitMap.get(getRandomIDNumber());
 
         //System.out.println("当前infoUnitMap = " + infoUnitMap+"size:"+infoUnitMap.size());
@@ -100,22 +100,11 @@ public class InfoChainMakerLimit {
 
         //如果没有链接，就随机链接
         if (linkToList.size() == 0){
-            //System.out.println("没有链接，随机链接");
             System.out.println("当前idNumber"+idNumber);
-            int randomId = getRandomIDNumber();
-            InfoUnit linkUnit = infoUnitMap.get(randomId);
-            //System.out.println("randomId = " + randomId);
-            //System.out.println("linkUnit0 = " + linkUnit);
-            InfoLink infoLink = new InfoLink();
-            infoLink.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
-            infoLink.setProbablity(random.nextDouble());
+            InfoUnit linkUnit = infoUnitMap.get(getRandomIDNumber());
+            InfoLink infoLink = getRandomInfoLink();
+
             //设置指向信息元及其概率
-            if (linkUnit == null){
-                System.out.println("当前选取的randomID:"+randomId);
-                System.out.println("指向的信息元不能为空");
-                System.exit(100);
-            }
-            //System.out.println("linkUnit1 = " + linkUnit);
             linkToList.put(linkUnit,infoLink);
 
             //设置后更新到infoUnit
@@ -131,13 +120,42 @@ public class InfoChainMakerLimit {
 
 
         }else{
-            //System.out.println("存在链接，选取最大概率进行链接");
-            //否则就寻找最大概率的InfoUnit
+            //v0.0.6存在链接后，是选取已有链接，还是选取新链接？
+            //随机生成一个概率，如果概率比最大概率大就随机选取新链接，否则还是按已有链接算
+
+            double v = random.nextDouble();
+
+            //寻找指向的最大概率
+            double max = getMaxProbablity(linkToList);
+
+            //寻找最大概率的InfoUnit
             InfoUnit maxProbablityInfoUnit = getMaxProbablityInfoUnit(linkToList);
 
-            //设置信息链内容,必须按顺序加入
-            infoUnitList.add(infoUnit);
-            infoUnitList.add(maxProbablityInfoUnit);
+            if (v > max){
+                System.out.println("当前idNumber"+idNumber);
+                InfoUnit linkUnit = infoUnitMap.get(getRandomIDNumber());
+                InfoLink infoLink = getRandomInfoLink();
+
+                //设置指向信息元及其概率
+                linkToList.put(linkUnit,infoLink);
+
+                //设置后更新到infoUnit
+                infoUnit.setLinkToList(linkToList);
+
+                //infoUnit更新后，要更新到信息池中
+                infoUnitMap.put(infoUnit.getInfoID(),infoUnit);
+
+                //设置信息链内容,必须按顺序加入
+                infoUnitList.add(infoUnit);
+                //System.out.println("linkUnit2 = " + linkUnit);
+                infoUnitList.add(linkUnit);
+
+            }else{
+                //设置信息链内容,必须按顺序加入
+                infoUnitList.add(infoUnit);
+                infoUnitList.add(maxProbablityInfoUnit);
+            }
+
 
         }
 
@@ -171,6 +189,16 @@ public class InfoChainMakerLimit {
     }
 
     /**
+     * 随机生成一个信息链接对象
+     */
+    public InfoLink getRandomInfoLink(){
+        InfoLink infoLink = new InfoLink();
+        infoLink.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
+        infoLink.setProbablity(random.nextDouble());
+        return infoLink;
+    }
+
+    /**
      * v0.0.4
      * 删除信息池中指定id的infoChain
      */
@@ -200,6 +228,24 @@ public class InfoChainMakerLimit {
 
     }
 
+
+    /**
+     * 获取指向信息元列表中最大概率指向的信息元的概率
+     * @param linkToMap
+     * @return
+     */
+    public double getMaxProbablity(HashMap<InfoUnit, InfoLink> linkToMap){
+        Set<InfoUnit> infoUnitSet = linkToMap.keySet();
+        Double max = -1.0;
+        for (InfoUnit infoUnit : infoUnitSet) {
+            InfoLink infoLink = linkToMap.get(infoUnit);
+            if (infoLink.getProbablity() > max){
+                max = infoLink.getProbablity();
+            }
+
+        }
+        return max ;
+    }
 
 
     /**

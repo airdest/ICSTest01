@@ -39,8 +39,23 @@ public class InfoChain extends InfoUnit {
     }
 
 
+    /**
+     * 是不是基础信息链
+     * 基础信息链指的是left 和 right都是基础信息单元
+     * 这样就不需要递归遍历了。
+     * @return
+     */
+    public boolean isBasicInfoChain(){
+        boolean isbasic = true;
+        for (InfoUnit infoUnit : infoUnitList) {
+            if (infoUnit.isInfoChain()){
+                isbasic = false;
+                break;
+            }
+        }
+        return isbasic;
 
-
+    }
 
 
 
