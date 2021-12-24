@@ -6,7 +6,7 @@ package basic;
 public interface MagicValue {
 
     //信息元默认存活时长 单位:ms
-    Integer DEFAULT_SURVIVAL_TIME = 1000 * 60 * 30 ;
+    Integer DEFAULT_SURVIVAL_TIME = 1000 * 60 * 10;
 
     //信息池默认最大信息元数量
     Integer DEFAULT_INFO_UNIT_NUMBER = 100000;
@@ -15,7 +15,7 @@ public interface MagicValue {
     Integer DEFAULT_INFO_UNIT_LENGTH = 100;
 
     //一个信息元可以指向其它信息元的数量,模拟神经元细胞的突触数量限制
-    Integer DEFAULT_MAX_POINT_TO_NUMBER = 100;
+    Integer DEFAULT_MAX_POINT_TO_NUMBER = 10;
 
     /**
      * 可以建立的信息元的最大层级

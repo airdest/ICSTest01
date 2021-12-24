@@ -73,7 +73,7 @@ public class Test04 {
 
             //生存时间控制 单位:ms
             //TODO infoChainMaker应该实现各自的寿命减少方法，或者暂时不考虑寿命问题
-            infoChainMaker.killLifeTime(0);
+            infoChainMaker.killLifeTime(10);
 
             //4.组合一个信息链
             InfoChain infoChain = infoChainMaker.getRandomInfoChain();
@@ -109,14 +109,22 @@ public class Test04 {
                 System.out.println("信息链展开："+flattenInfoChain);
                 Reward rewardChange = target01.getRewardChange(flattenInfoChain);
 
+
+                //自己以及子链权值递归减少
                 InfoChain infochainWeighted = target01.updateInfoChainWeights(infoChain, rewardChange);
+
+                //这样的信息链本身及其子链存活时间也应该被减少
+                infochainWeighted.setLinkTime(infoChain.getLinkTime() + rewardChange.getTimeChange());
 
                 ArrayList<InfoUnit> infoChainList = target01.getInfoUnitList(infochainWeighted);
 
                 HashMap<Integer, InfoUnit> updatedInfoUnitMap = target01.updateInfoUnitMap(infoChainList, infoChainMaker.getInfoUnitMap());
 
+                //更新到信息池
                 infoChainMaker.setInfoUnitMap(updatedInfoUnitMap);
 
+                //杀掉死亡的InfoLink
+                infoChainMaker.killPointToLifeTime();
             }
 
 

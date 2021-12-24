@@ -296,10 +296,13 @@ public class InfoChainMakerLimit {
         ArrayList<Integer> removeList = new ArrayList<>();
         for (Integer integer : integers) {
             InfoUnit infoUnit = infoUnitMap.get(integer);
+
+            //这里linktime实际上是survivalTime
             infoUnit.setLinkTime(infoUnit.getLinkTime() - timeToSub);
             if (infoUnit.getLinkTime() <= 0){
                 removeList.add(integer);
             }
+
             infoUnitMap.put(integer,infoUnit);
         }
 
@@ -311,6 +314,17 @@ public class InfoChainMakerLimit {
             System.out.println("所有信息元都死掉了。");
         }
 
+    }
+
+
+    public void killPointToLifeTime(){
+        HashMap<Integer, InfoUnit> infoUnitMapNew =new HashMap<>();
+        for (Integer integer : infoUnitMap.keySet()) {
+            InfoUnit infoUnit = infoUnitMap.get(integer);
+            infoUnit.killLinktoListTime();
+            infoUnitMapNew.put(integer,infoUnit);
+        }
+        this.infoUnitMap = infoUnitMapNew;
     }
 
 

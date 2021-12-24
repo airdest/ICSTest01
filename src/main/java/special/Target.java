@@ -71,6 +71,7 @@ public class Target {
             InfoChain leftInfoChain = (InfoChain)left;
             return updateInfoChainWeights(leftInfoChain, reward);
         }else{
+
             //不是信息链则直接更新
             HashMap<InfoUnit, InfoLink> linkToList = left.getLinkToList();
             for (InfoUnit infoUnit : linkToList.keySet()) {
@@ -96,6 +97,7 @@ public class Target {
             updatedInfoUnitList.add(right);
 
             infoChain.setInfoUnitList(updatedInfoUnitList);
+
             return infoChain;
         }
 

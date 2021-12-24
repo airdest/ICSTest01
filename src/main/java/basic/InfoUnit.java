@@ -17,6 +17,10 @@ import java.util.HashMap;
  *
  */
 public class InfoUnit  {
+    /**
+     * 被激活（被选作信息链组合）次数
+     */
+    Integer activatedTime = 0;
 
 
     /**
@@ -45,7 +49,7 @@ public class InfoUnit  {
      * 信息元指向的其它信息元，及指向概率和时间(信息链接)
      * 简单地说就是：指向哪个信息元，指向的概率是多少，这个指向的存活时间是多少。
      */
-    HashMap<InfoUnit,InfoLink> linkToList = new HashMap<>(MagicValue.DEFAULT_MAX_POINT_TO_NUMBER);
+    HashMap<InfoUnit,InfoLink> linkToList = new HashMap<>();
 
     public Integer getInfoID() {
         return infoID;
@@ -129,6 +133,23 @@ public class InfoUnit  {
         }else{
             return false;
         }
+    }
+
+
+    /**
+     * 如果时间小于0，就删掉
+     */
+    public void killLinktoListTime(){
+
+        HashMap<InfoUnit,InfoLink> newLinkedToList = new HashMap<>();
+
+        for (InfoUnit infoUnit : linkToList.keySet()) {
+            InfoLink infoLink = linkToList.get(infoUnit);
+            if (infoLink.getLinkTime()> 0){
+                newLinkedToList.put(infoUnit,infoLink);
+            }
+        }
+        this.linkToList = newLinkedToList;
     }
 
 }

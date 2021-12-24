@@ -45,7 +45,13 @@ public class Target01 extends Target {
         //得出此信息链要增加的权值
 
         double weightAdd = 0;
-        weightAdd = 0.1 * buttonRatio;
+
+        if (buttonRatio > 0.5){
+            weightAdd = 0.1 * button;
+        }else{
+            weightAdd = -0.1 ;
+
+        }
 
 
 
@@ -58,7 +64,7 @@ public class Target01 extends Target {
 
         reward.setWeightChange(weightAdd);
 
-        int time =  stop * -1000;
+        int time =  stop * -5000;
 
         //不动会减少寿命。
         reward.setTimeChange(time);
