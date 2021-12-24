@@ -37,6 +37,7 @@ public class Target01 extends Target {
 
         //计算权值增加的比率
         double buttonRatio = (double) button / (button+stop) ;
+        System.out.println("buttonRatio = " + buttonRatio);
         double stopRatio = (double) stop / (button+stop) ;
 
         //得出此信息链要增加的权值
