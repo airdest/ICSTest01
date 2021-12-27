@@ -1,22 +1,24 @@
-import basic.*;
-import special.Effector;
-import special.Reward;
+package demo01;
+
+import basic.InfoChain;
+import basic.InfoChainMaker;
+import basic.InfoUnit;
+import basic.Parameter;
+import basic.Effector;
+import basic.Reward;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *  斯纳金箱 实验1 按下按钮就有奖励(权值提高)
- *  检验ICS是否具有尽可能拟合目标的能力
- *
+ *  斯纳金箱 实验1 按下按钮就有奖励
  */
-@Deprecated
-public class Test03 {
+public class Test04 {
 
     public static void main(String[] args) throws InterruptedException {
 
         //1.创建一个信息结构拟合器
-        InfoChainMakerLimit infoChainMaker = new InfoChainMakerLimit();
+        InfoChainMaker infoChainMaker = new InfoChainMaker();
 
         //2.创建接收器，行动器
         //Receptor receptor = new Receptor();
@@ -36,7 +38,7 @@ public class Test03 {
         //设置id 为 1 ，并+1
         actionInfoUnit1.setInfoID(infoChainMaker.getIdNumber());
         infoChainMaker.setIdNumber(infoChainMaker.getIdNumber()+1);
-        actionInfoUnit1.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
+        actionInfoUnit1.setLinkTime(Parameter.DEFAULT_SURVIVAL_TIME);
 
 
         InfoUnit actionInfoUnit2 = new InfoUnit();
@@ -44,7 +46,7 @@ public class Test03 {
         //设置id 为 2 ，并+1
         actionInfoUnit2.setInfoID(infoChainMaker.getIdNumber());
         infoChainMaker.setIdNumber(infoChainMaker.getIdNumber()+1);
-        actionInfoUnit2.setLinkTime(MagicValue.DEFAULT_SURVIVAL_TIME);
+        actionInfoUnit2.setLinkTime(Parameter.DEFAULT_SURVIVAL_TIME);
 
         //添加到行动信息元列表
         actionList.add(actionInfoUnit1);
@@ -63,12 +65,13 @@ public class Test03 {
 
         //循环生成信息链
         //v0.0.2新增信息池默认最大信息元数量限制部分代码
-        int maxInfoUnitLimit = MagicValue.DEFAULT_INFO_UNIT_NUMBER - effector.getActionInfoUnitList().size() ;
+        int maxInfoUnitLimit = Parameter.DEFAULT_INFO_UNIT_NUMBER - effector.getActionInfoUnitList().size() ;
 
         for (int i = 0; i < maxInfoUnitLimit; i++) {
 
             //生存时间控制 单位:ms
-            infoChainMaker.killLifeTime(3000);
+            //TODO infoChainMaker应该实现各自的寿命减少方法，或者暂时不考虑寿命问题
+            infoChainMaker.killLifeTime(10);
 
             //4.组合一个信息链
             InfoChain infoChain = infoChainMaker.getRandomInfoChain();
@@ -82,7 +85,7 @@ public class Test03 {
 
 
             //查看组合出的信息链
-            System.out.println("组合出的信息链："+infoChain.toString());
+            //System.out.println("组合出的信息链："+infoChain.toString());
 
 
             //先展开信息链
@@ -92,30 +95,35 @@ public class Test03 {
 
             //最长信息链限制，超出长度限制会被销毁
             boolean died = false;
-            if (flattenInfoChain.size() > MagicValue.DEFAULT_INFO_UNIT_LENGTH){
+            if (flattenInfoChain.size() > Parameter.DEFAULT_INFO_UNIT_LENGTH){
                 infoChainMaker.killInfoChainByID(infoChain.getInfoID());
                 died = true;
             }
 
-            System.out.println("信息链展开："+flattenInfoChain);
-            //如果信息链没死，进行Target规则判断
-            //HashMap<Integer, InfoUnit> weightedInfoPool = target01.checkRule(flattenInfoChain, infoChainMaker.getInfoUnitMap());
-            //权值更新
-            //infoChainMaker.setInfoUnitMap(weightedInfoPool);
 
-            Reward weightsAdd = target01.getRewardChange(flattenInfoChain);
+            //如果信息链没死，进行Target规则判断，并展示，死掉的无需展示
 
-            InfoChain infochainWeighted = target01.updateInfoChainWeights(infoChain, weightsAdd);
-
-            ArrayList<InfoUnit> infoChainList = target01.getInfoUnitList(infochainWeighted);
-
-            HashMap<Integer, InfoUnit> updatedInfoUnitMap = target01.updateInfoUnitMap(infoChainList, infoChainMaker.getInfoUnitMap());
-
-            infoChainMaker.setInfoUnitMap(updatedInfoUnitMap);
+            if (!died){
+                System.out.println("信息链展开："+flattenInfoChain);
+                Reward rewardChange = target01.getRewardChange(flattenInfoChain);
 
 
-            //7.执行信息链
-            //effector.executeInfoChain(infoChain);
+                //自己以及子链权值递归减少
+                InfoChain infochainWeighted = target01.updateInfoChainWeights(infoChain, rewardChange);
+
+                //这样的信息链本身及其子链存活时间也应该被减少
+                infochainWeighted.setLinkTime(infoChain.getLinkTime() + rewardChange.getTimeChange());
+
+                ArrayList<InfoUnit> infoChainList = target01.getInfoUnitList(infochainWeighted);
+
+                HashMap<Integer, InfoUnit> updatedInfoUnitMap = target01.updateInfoUnitMap(infoChainList, infoChainMaker.getInfoUnitMap());
+
+                //更新到信息池
+                infoChainMaker.setInfoUnitMap(updatedInfoUnitMap);
+
+                //杀掉死亡的InfoLink
+                infoChainMaker.killPointToLifeTime();
+            }
 
         }
 

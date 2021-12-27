@@ -1,5 +1,8 @@
-package special;
+package basic;
 
+/**
+ * Reward
+ */
 public class Reward {
 
     double weightChange = 0;

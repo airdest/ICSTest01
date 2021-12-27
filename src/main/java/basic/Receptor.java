@@ -1,11 +1,11 @@
-package special;
+package basic;
 
 import basic.InfoUnit;
 
 import java.util.ArrayList;
 
 /**
- * 接收器
+ * Receptor
  */
 public class Receptor {
 

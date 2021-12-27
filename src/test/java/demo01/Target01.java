@@ -1,8 +1,8 @@
-import basic.InfoChain;
-import basic.InfoLink;
+package demo01;
+
 import basic.InfoUnit;
-import special.Reward;
-import special.Target;
+import basic.Reward;
+import basic.Target;
 
 import java.util.ArrayList;
 import java.util.HashMap;

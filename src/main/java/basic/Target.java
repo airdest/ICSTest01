@@ -1,56 +1,15 @@
-package special;
-
-import basic.InfoChain;
-import basic.InfoLink;
-import basic.InfoUnit;
+package basic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * 目标
- * 每个目标都是一个要匹配的规则
- *
+ * Target
  */
 public class Target {
 
-    //时间限制
-    long timeLimit ;
-
-    //截止时间
-    long timeDeadLine ;
-
-    //层数限制
-    Integer layers ;
-
     /**
-     * 匹配成功后需要增加权值、生存时间
-     * 匹配失败则需要减少权值、生存时间
-     * 每个target都需要实现规则函数，用于判断一个infoUnit是否符合规则
-     * 这样每个target都能设定独特的规则
-     * v0.0.5 优化了checkRule的形式，作为概念上的方法。
-     * @return
-     */
-    public Object checkRule() {
-
-        return null;
-    }
-
-
-    /**
-     * 返回权值+权值增量
-     * @param weight
-     * @param weightAdd
-     * @return
-     */
-    public double getAffectedWeights(double weight,double weightAdd){
-        return weight + weightAdd;
-    }
-
-    /**
-     * sigmoid
-     * @param value
-     * @return
+     * sigmoid 用于把任意数字映射到0到1之间作为概率。
      */
     public double mysigMoid(double value) {
         //Math.E=e;Math.Pow(a,b)=a^b
@@ -58,6 +17,7 @@ public class Target {
         double result = 1 / (1 + ey);
         return result;
     }
+
     /**
      * 接收信息链，更新权重
      * 返回更新后的信息链

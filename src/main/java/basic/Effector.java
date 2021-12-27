@@ -1,4 +1,4 @@
-package special;
+package basic;
 
 import basic.InfoChain;
 import basic.InfoUnit;
@@ -6,8 +6,7 @@ import basic.InfoUnit;
 import java.util.ArrayList;
 
 /**
- * 行动器
- * 包含基础行动指令信息元
+ * Effector
  */
 public class Effector {
 
