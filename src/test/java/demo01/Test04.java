@@ -110,6 +110,7 @@ public class Test04 {
 
 
                 //自己以及子链权值递归减少
+                //TODO 对每一个子链都递归调用这个过程
                 InfoChain infochainWeighted = target01.updateInfoChainWeights(infoChain, rewardChange);
 
                 //这样的信息链本身及其子链存活时间也应该被减少

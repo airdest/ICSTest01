@@ -25,11 +25,15 @@ public class Target {
     public InfoChain  updateInfoChainWeights(InfoChain infoChain,Reward reward){
         //信息链所递归式逐级展开，分别更新每一层的两个信息单元的指向概率。
         ArrayList<InfoUnit> infoUnitList = infoChain.getInfoUnitList();
+
         InfoUnit left = infoUnitList.get(0);
+
         InfoUnit right = infoUnitList.get(1);
         if (left.isInfoChain()){
             InfoChain leftInfoChain = (InfoChain)left;
             return updateInfoChainWeights(leftInfoChain, reward);
+
+
         }else{
 
             //不是信息链则直接更新
@@ -51,6 +55,7 @@ public class Target {
 
             //更新后的链接列表，设置到left
             left.setLinkToList(linkToList);
+
             //设置后，left设置到信息链
             ArrayList<InfoUnit> updatedInfoUnitList = new ArrayList<>();
             updatedInfoUnitList.add(left);
