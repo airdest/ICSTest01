@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 /**
  *  斯纳金箱 实验1 按下按钮就有奖励
+ *  TODO 斯纳金箱实验三个部分完成，参考：https://zhuanlan.zhihu.com/p/126995823
  */
 public class Test04 {
 
